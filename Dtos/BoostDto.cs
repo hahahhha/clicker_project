@@ -4,7 +4,7 @@ public class BoostDto
 {
 	public int Id { get; init; }
 
-	public string Title { get; init; }
+	public string Title { get; init; } = string.Empty;
 
 	public long Price { get; set; }
 
@@ -12,5 +12,5 @@ public class BoostDto
 
 	public bool IsAuto { get; set; }
 
-	public byte[] Image { get; init; }
+	public byte[]? Image { get; init; }
 }
