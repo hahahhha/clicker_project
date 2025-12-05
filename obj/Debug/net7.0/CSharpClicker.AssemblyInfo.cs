@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CSharpClicker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2a1c5f987b4d2afc131799943fd6215a5d744c7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+258abd639fdea5ca8ee37333e3ac1b6e7fc9d5c4")]
 [assembly: System.Reflection.AssemblyProductAttribute("CSharpClicker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CSharpClicker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -46,8 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EntityExtensions\" />
-    <Folder Include="UseCases\Boosts\DeleteBoost\" />
     <Folder Include="UseCases\Boosts\UpdateBoost\" />
   </ItemGroup>
 

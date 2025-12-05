@@ -3,11 +3,14 @@ using MediatR;
 using CSharpClicker.UseCases.GetBoosts;
 using CSharpClicker.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using CSharpClicker.UseCases.Boosts.CreateBoost;
+using CSharpClicker.UseCases.Boosts.DeleteBoost;
+using CSharpClicker.Dtos;
 
 namespace CSharpClicker.Controllers;
 
 [Route("/")]
-[Authorize]
+// [Authorize]
 public class AdminController : Controller
 {
     private readonly IMediator mediator;
@@ -28,6 +31,26 @@ public class AdminController : Controller
         };
 
         return View(adminViewModel);
+    }
+
+    [HttpPost("/admin/boost")]
+    public async Task<IActionResult> Create([FromBody] BoostDto boostDto) // Принимаем BoostDto напрямую
+    {
+        Console.WriteLine("created boost");
+        
+        // Создаем команду с DTO
+        var command = new CreateBoostCommand(boostDto);
+        
+        await mediator.Send(command);
+        return Ok();
+    }
+
+    [HttpDelete("/admin/boosts/{id}")]
+    public async Task<IActionResult> Delete(int id) 
+    {
+        var command = new DeleteBoostCommand(id);
+        await mediator.Send(command);
+        return Ok();
     }
 }
 
