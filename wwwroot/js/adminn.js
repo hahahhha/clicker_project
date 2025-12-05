@@ -1,19 +1,24 @@
-async function deleteBoost(id) {
-    try {
-        const response = await fetch(`/admin/boosts/${id}`, {
-            method: "DELETE",
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        if (response.ok) {
-            console.log('ok')
-        } else {
-            console.log('ne ok')
-        }
-    } catch (error) {
-        console.log(error);
-    }
+async function deleteBoostClick(id) {
+    const modalElement = document.querySelector('#confirmDeleteModal');
+    const modal = new bootstrap.Modal(modalElement);
+    console.log(modal);
+    console.log(id);
+    modal.show();
+    // try {
+    //     const response = await fetch(`/admin/boosts/${id}`, {
+    //         method: "DELETE",
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //     if (response.ok) {
+    //         console.log('ok')
+    //     } else {
+    //         console.log('ne ok')
+    //     }
+    // } catch (error) {
+    //     console.log(error);
+    // }
 }
 
 function fileToBase64(file) {
@@ -31,7 +36,7 @@ function fileToBase64(file) {
 
 function updateBoostsTable(boost) {
     const tbody = document.querySelector('.boosts-table tbody');
-    const row = tbody.insertRow(1);
+    const row = tbody.insertRow(-1);
 
     row.setAttribute('data-boost-id', boost.id);
     row.innerHTML = `
@@ -56,6 +61,15 @@ function updateBoostsTable(boost) {
             </div>
         </td>
     `;
+
+    // anim
+    row.style.opacity = '0';
+    row.style.transform = 'translateY(-10px)';
+    setTimeout(() => {
+        row.style.transition = 'all 0.3s ease';
+        row.style.opacity = '1';
+        row.style.transform = 'translateY(0)';
+    }, 10);
 }
 
 
