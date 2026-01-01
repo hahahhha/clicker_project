@@ -34,7 +34,7 @@ public class AdminController : Controller
     }
 
     [HttpPost("/admin/boost")]
-    public async Task<IActionResult> Create([FromBody] BoostDto boostDto) // Принимаем BoostDto напрямую
+    public async Task<IActionResult> Create([FromBody] BoostDto boostDto)
     {
         Console.WriteLine("created boost");
         
@@ -45,7 +45,7 @@ public class AdminController : Controller
         return Ok();
     }
 
-    [HttpDelete("/admin/boosts/{id}")]
+    [HttpDelete("/admin/boost/{id}")]
     public async Task<IActionResult> Delete(int id) 
     {
         var command = new DeleteBoostCommand(id);

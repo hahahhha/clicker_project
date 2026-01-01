@@ -22,7 +22,7 @@ public class DeleteBoostCommandHandler : IRequestHandler<DeleteBoostCommand, Uni
             throw new Exception($"пустой toDeleteBoost, {request.DeleteId}");
         }
         appDbContext.Boosts.Remove(toDeleteBoost);
-        await appDbContext.SaveChangesAsync();
+        await appDbContext.SaveChangesAsync(cancellationToken);
         return Unit.Value;
     }
 }
