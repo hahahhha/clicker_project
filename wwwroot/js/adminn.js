@@ -1,4 +1,4 @@
-async function testDelete(id) {
+async function onBoostDelete(id) {
     const toDeleteBoostId = id;
 
     const modalElement = document.getElementById('confirmDeleteModal');
@@ -17,8 +17,14 @@ async function testDelete(id) {
             console.log(error);
         }
         modal.hide();
+        alert('Буст успешно удален!');
+        location.reload();
         // Доделать, чтобы буст удалялся и визуально + сделать уведомление по красоте
     });
+}
+
+async function onBoostChange(id) {
+    
 }
 
 function fileToBase64(file) {
@@ -34,51 +40,13 @@ function fileToBase64(file) {
     });
 }
 
-function updateBoostsTable(boost) {
-    const tbody = document.querySelector('.boosts-table tbody');
-    const row = tbody.insertRow(-1);
-
-    row.setAttribute('data-boost-id', boost.id);
-    row.innerHTML = `
-        <td class="text-center fw-bold">${boost.id}</td>
-        <td>
-            <div class="d-flex align-items-center">
-                <i class="fas fa-bolt text-warning me-2"></i>
-                <span>${boost.title}</span>
-            </div>
-        </td>
-        <td class="text-center">
-            <span class="badge bg-success">${boost.price} золота</span>
-        </td>
-        <td>
-            <div class="d-flex justify-content-center gap-2">
-                <button class="btn btn-sm btn-outline-danger" onclick="deleteBoost(${boost.id})">
-                    <i class="fas fa-trash me-1"></i> Удалить
-                </button>
-                <button class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-edit me-1"></i> Изменить
-                </button>
-            </div>
-        </td>
-    `;
-
-    // anim
-    row.style.opacity = '0';
-    row.style.transform = 'translateY(-10px)';
-    setTimeout(() => {
-        row.style.transition = 'all 0.3s ease';
-        row.style.opacity = '1';
-        row.style.transform = 'translateY(0)';
-    }, 10);
-}
-
 
 const createBoostButton = document.querySelector('.create-boost-button');
 const deleteBoostButtons = document.querySelectorAll(`.delete-boost-btn`);
 
 deleteBoostButtons.forEach((btn) => {
     btn.addEventListener('click', async () => {
-        await testDelete(parseInt(btn.getAttribute('data-id')))
+        await onBoostDelete(parseInt(btn.getAttribute('data-id')))
     });
 });
 
@@ -112,7 +80,7 @@ document.querySelector('#createBoostForm').addEventListener('submit', async func
             price: price,
             profit: profit,
             isAuto: isAuto,
-            image: imageBase64  // base64 строка или null
+            image: imageBase64
         };
         
         const response = await fetch('/admin/boost', {
@@ -128,7 +96,7 @@ document.querySelector('#createBoostForm').addEventListener('submit', async func
             const modal = bootstrap.Modal.getInstance(document.querySelector('#createBoostModal'));
             if (modal) modal.hide();
             this.reset();
-            updateBoostsTable(boostData);
+            location.reload();
         } else {
             const error = await response.text();
             alert('Ошибка создания: ' + error);

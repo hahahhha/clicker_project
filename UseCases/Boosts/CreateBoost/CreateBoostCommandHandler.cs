@@ -26,7 +26,7 @@ public class CreateBoostCommandHandler : IRequestHandler<CreateBoostCommand, Uni
             IsAuto = boostDto.IsAuto,
             Image = boostDto.Image
         });
-        await appDbContext.SaveChangesAsync();
+        await appDbContext.SaveChangesAsync(cancellationToken);
 
         return Unit.Value;
     }

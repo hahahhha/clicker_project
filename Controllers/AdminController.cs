@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using CSharpClicker.UseCases.Boosts.CreateBoost;
 using CSharpClicker.UseCases.Boosts.DeleteBoost;
 using CSharpClicker.Dtos;
+using CSharpClicker.UseCases.Boosts.GetBoost;
+using CSharpClicker.UseCases.Boosts.UpdateBoost;
 
 namespace CSharpClicker.Controllers;
 
@@ -33,17 +35,41 @@ public class AdminController : Controller
         return View(adminViewModel);
     }
 
+    [HttpGet("/admin/boost/{id:int}")]
+    public async Task<IActionResult> GetBoost(int id)
+    {
+        var query = new GetBoostQuery(id);
+        var result = await mediator.Send(query);
+        return Ok(result);
+    }
+
+    [HttpGet("/admin/boost")]
+    public async Task<IActionResult> GetAllBoosts()
+    {
+        var query = new GetBoostsQuery();
+        var result = await mediator.Send(query);
+        return Ok(result);
+    }
+
     [HttpPost("/admin/boost")]
     public async Task<IActionResult> Create([FromBody] BoostDto boostDto)
     {
         Console.WriteLine("created boost");
         
-        // Создаем команду с DTO
         var command = new CreateBoostCommand(boostDto);
         
         await mediator.Send(command);
         return Ok();
     }
+
+    [HttpPut("/admin/boost/{id:int}")]
+    public async Task<IActionResult> Update([FromBody] BoostDto boostDto, int id)
+    {
+        var command = new UpdateBoostCommand(boostDto, id);
+        await mediator.Send(command);
+        return Ok(id);
+    }
+
 
     [HttpDelete("/admin/boost/{id}")]
     public async Task<IActionResult> Delete(int id) 
