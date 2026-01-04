@@ -1,32 +1,3 @@
-async function onBoostDelete(id) {
-    const toDeleteBoostId = id;
-
-    const modalElement = document.getElementById('confirmDeleteModal');
-    
-    const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
-
-    modal.show()
-
-    const confirmDeleteBtn = modalElement.querySelector('#confirmDeleteBtn');
-    confirmDeleteBtn.addEventListener('click', async () => {
-        try {
-            await fetch(`/admin/boost/${id}`, {
-                method: 'DELETE'
-            });
-        } catch (error) {
-            console.log(error);
-        }
-        modal.hide();
-        alert('Буст успешно удален!');
-        location.reload();
-        // Доделать, чтобы буст удалялся и визуально + сделать уведомление по красоте
-    });
-}
-
-async function onBoostChange(id) {
-    
-}
-
 function fileToBase64(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -42,20 +13,16 @@ function fileToBase64(file) {
 
 
 const createBoostButton = document.querySelector('.create-boost-button');
-const deleteBoostButtons = document.querySelectorAll(`.delete-boost-btn`);
-
-deleteBoostButtons.forEach((btn) => {
-    btn.addEventListener('click', async () => {
-        await onBoostDelete(parseInt(btn.getAttribute('data-id')))
-    });
-});
+const createBoostForm = document.querySelector('#createBoostForm');
 
 createBoostButton.addEventListener('click', () => {
+    console.log('create boost btn click')
     const modal = new bootstrap.Modal(document.querySelector('#createBoostModal'));
     modal.show();
 });
 
-document.querySelector('#createBoostForm').addEventListener('submit', async function(e) {
+
+createBoostForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     
     const title = document.getElementById('titleInput').value;
