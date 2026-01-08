@@ -3,6 +3,7 @@ using CSharpClicker.UseCases.Logout;
 using CSharpClicker.UseCases.Register;
 using CSharpClicker.ViewModels;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 

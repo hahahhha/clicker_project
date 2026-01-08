@@ -18,7 +18,10 @@ using (var scope = app.Services.CreateScope())
 
     DbContextInitializer.InitializeDataBase(appDbContext);
 }
+// UserRolesInitializer.SeedRolesAsync(app.Services);
 
+app.UseStaticFiles();
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -27,7 +30,7 @@ app.MapDefaultControllerRoute();
 app.MapHub<ClickerHub>("/clickerHub");
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseStaticFiles();
+
 app.Run();
 
 void ConfigureServices(IServiceCollection services)
@@ -46,6 +49,12 @@ void ConfigureServices(IServiceCollection services)
     {
         opt.LoginPath = "/auth/login";
         opt.LogoutPath = "/auth/logout";
+
+        opt.Cookie.MaxAge = TimeSpan.FromDays(14);
+        opt.ExpireTimeSpan = TimeSpan.FromDays(14);
+        opt.SlidingExpiration = true;
+        opt.Cookie.HttpOnly = true;
+        opt.Cookie.SameSite = SameSiteMode.Strict;
     });
 
     services.AddAutoMapper(typeof(Program).Assembly);
@@ -53,4 +62,5 @@ void ConfigureServices(IServiceCollection services)
     services.AddSwaggerGen();
     services.AddControllersWithViews();
     services.AddSignalR();
+    services.AddHttpContextAccessor(); 
 }

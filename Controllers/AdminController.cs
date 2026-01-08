@@ -12,7 +12,7 @@ using CSharpClicker.UseCases.Boosts.UpdateBoost;
 namespace CSharpClicker.Controllers;
 
 [Route("/")]
-// [Authorize]
+[Authorize(Roles = "Admin")]
 public class AdminController : Controller
 {
     private readonly IMediator mediator;
@@ -22,7 +22,6 @@ public class AdminController : Controller
         this.mediator = mediator;
     }
 
-    // GET: AdminController
     [HttpGet("/admin")]
     public async Task<IActionResult> Admin()
     {

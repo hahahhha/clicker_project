@@ -60,6 +60,9 @@
 <div id="greeting" class="d-flex d-column align-items-center card">
 	<h2>Приветствуем тебя, @Model.UserInfo.UserName</h2>
 	<a href="/admin">Админ-панель</a>
+	<form method="post" action="/auth/logout">
+		<button class="btn btn-link">Выйти</button>
+	</form>
 	<h4>У тебя есть <span id="currentScore">@Model.UserInfo.CurrentScore</span> золота</h4>
 	<h4>Всего ты добыл <span id="recordScore">@Model.UserInfo.RecordScore</span> золота</h4>
 </div>

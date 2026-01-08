@@ -48,6 +48,8 @@
   <ItemGroup>
     <Folder Include="UseCases\Boosts\GetBoost\" />
     <Folder Include="UseCases\Boosts\UpdateBoost\" />
+    <Folder Include="UseCases\GetAllUsers\" />
+    <Folder Include="UseCases\RemoveAdmin\" />
   </ItemGroup>
 
 </Project>
